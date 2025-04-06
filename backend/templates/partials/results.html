@@ -1,0 +1,23 @@
+<div>
+    <h2>Comparison Results</h2>
+    <table id="results-table">
+        <thead>
+            <tr>
+                <th data-sort="number">Intersection</th>
+                <th data-sort="number">Union</th>
+                <th data-sort="number">Jaccard</th>
+                <th data-sort="number">Number of Intersections</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.intersection }}</td>
+                <td>{{ result.union }}</td>
+                <td>{{ result.jaccard }}</td>
+                <td>{{ result.n_intersections }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

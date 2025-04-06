@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/static/css/base.css" rel="stylesheet">
+    <link href="/static/css/results.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org"></script>
     <title>{% block title %}Genome Looker{% endblock %}</title>
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
@@ -21,7 +23,7 @@
         </main>
 
         <footer class="text-center mt-8 text-gray-600 text-sm">
-            <p>&copy; {% block year %}{{ now.year }}{% endblock %} Ваш Проект</p>
+            <p>&copy; {% block year %}{{ now.year }}{% endblock %} Genome Looker</p>
         </footer>
     </div>
 

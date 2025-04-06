@@ -12,5 +12,6 @@ async def index_page(request: Request, templates: TemplatesDependency):
     """
     return templates.TemplateResponse("index.html", {
         "request": request,
-        "now": datetime.now()
+        "now": datetime.now(),
+        "results": []
     })
