@@ -1,0 +1,12 @@
+aiofiles
+fastapi[standard]
+numpy
+pydantic
+python-decouple
+python-multipart
+uvicorn
+httpx
+pytest
+pytest-asyncio
+Jinja2
+pybedtools

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/base.css" rel="stylesheet">
+    <title>{% block title %}Genome Looker{% endblock %}</title>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800">
+                Search for similar genomic data
+            </h1>
+        </header>
+
+        <main class="bg-white p-6 rounded-lg shadow-md">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer class="text-center mt-8 text-gray-600 text-sm">
+            <p>&copy; {% block year %}{{ now.year }}{% endblock %} Ваш Проект</p>
+        </footer>
+    </div>
+
+</body>
+</html>
