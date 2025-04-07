@@ -32,6 +32,7 @@ class GenomeService:
         for dataset in self.get_datasets():
             bed_tool_dataset = BedTool(dataset).sort()
             result = bed_tool_dataset.jaccard(bed_tool_target)
+            result['dataset'] = dataset.name
             model = JaccardResult.model_validate(result)
             results.append(model)
         return results
