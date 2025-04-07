@@ -18,7 +18,10 @@
     <p>Upload your BED file to calculate Jaccard similarities:</p>
     <form id="upload-form" method="post" enctype="multipart/form-data" 
           hx-post="{{ url_for('jaccards_html') }}"
-          hx-target="#results-container" hx-swap="innerHTML">
+          hx-target="#results-container" hx-swap="innerHTML"
+          onsubmit="document.getElementById('loading-indicator').style.display = 'block';"
+          hx-on::after-request="document.getElementById('loading-indicator').style.display = 'none';"
+          hx-on::error="document.getElementById('loading-indicator').style.display = 'none';">
         <div>
             <label for="file-upload">Select a BED file:</label>
             <input type="file" id="file-upload" name="file" accept=".bed" required>
@@ -30,6 +33,9 @@
         </label>
         <button type="submit">Upload</button>
     </form>
+    <div id="loading-indicator" style="display: none; margin-top: 10px; text-align: center;">
+        <div class="spinner"></div>
+    </div>
 </div>
 
 <hr style="margin: 20px 0;">
