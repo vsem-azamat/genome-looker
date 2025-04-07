@@ -1,1 +1,1 @@
-from .bedtools import JaccardResult
+from .bedtools import JaccardResult # noqa: F401

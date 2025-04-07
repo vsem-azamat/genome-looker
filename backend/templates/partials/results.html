@@ -3,16 +3,28 @@
     <div id="results-table"></div>
 </div>
 <script>
-    const tableData = {{ results|safe }};
-    new Tabulator("#results-table", {
-        data: tableData,
-        layout: "fitColumns",
-        columns: [
-            { title: "Dataset", field: "dataset"},
-            { title: "Intersection", field: "intersection", sorter: "number" },
-            { title: "Union", field: "union", sorter: "number" },
-            { title: "Jaccard", field: "jaccard", sorter: "number" },
-            { title: "Number of Intersections", field: "n_intersections", sorter: "number" },
-        ],
-    });
+    (() => {
+        let tableData = {{ results|safe }};
+        new Tabulator("#results-table", {
+            data: tableData,
+            layout: "fitColumns",
+            initialSort: [
+                { column: "jaccard", dir: "desc" },
+            ],
+            columns: [
+                {
+                    title: "Dataset",
+                    field: "dataset",
+                    formatter: (cell) => {
+                        let datasetName = cell.getValue();
+                        return `<a href="{{ url_for('download_dataset', dataset='` + datasetName + `') }}" target="_blank">${datasetName}</a>`;
+                    },
+                },
+                { title: "Intersection", field: "intersection", sorter: "number" },
+                { title: "Union", field: "union", sorter: "number" },
+                { title: "Jaccard", field: "jaccard", sorter: "number" },
+                { title: "Number of Intersections", field: "n_intersections", sorter: "number" },
+            ],
+        });
+    })();
 </script>

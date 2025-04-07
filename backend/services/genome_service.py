@@ -3,6 +3,7 @@ from typing import Generator
 from pathlib import Path
 from pybedtools import BedTool
 from fastapi import UploadFile
+from fastapi.responses import FileResponse
 
 from backend.schemes import JaccardResult
 
@@ -36,3 +37,15 @@ class GenomeService:
             model = JaccardResult.model_validate(result)
             results.append(model)
         return results
+
+    async def download_dataset(self, dataset: str) -> FileResponse:
+        """
+        Download a dataset file.
+        """
+        dataset_path = self.datasets_dir / dataset
+        if not dataset_path.exists():
+            raise ValueError(f"Dataset {dataset} does not exist.")
+        if not dataset_path.is_file():
+            raise ValueError(f"Dataset {dataset} is not a file.")
+        
+        return FileResponse(dataset_path, media_type='application/octet-stream', filename=dataset)

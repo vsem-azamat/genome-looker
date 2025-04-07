@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.pages import router as pages_router
+from backend.api import router as api_router
 from backend.core.dependencies import mount_static_files
 
 app = FastAPI(
@@ -9,6 +10,7 @@ app = FastAPI(
     version="0.1.0",
 )
 app.include_router(pages_router)
+app.include_router(api_router)
 
 mount_static_files(app)
 
