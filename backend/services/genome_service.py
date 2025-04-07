@@ -1,5 +1,4 @@
 import io
-import copy
 import logging
 import aiofiles
 from pathlib import Path
@@ -41,8 +40,11 @@ class GenomeService:
         """
         Find similar genomes to the uploaded file.
         """
-        self._validate_bed_file(copy.deepcopy(file))
-        file_string_io = io.StringIO(file.file.read().decode())
+        file_content = file.file.read()
+        file.file.seek(0)
+        self._validate_bed_file(file)
+
+        file_string_io = io.StringIO(file_content.decode())
         bed_tool_target = BedTool(file_string_io).sort()
         results = []
         for dataset in self.get_dataset_paths():
