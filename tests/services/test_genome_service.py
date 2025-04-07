@@ -3,7 +3,7 @@ from pathlib import Path
 from fastapi import UploadFile
 from fastapi import HTTPException
 
-from backend.schemes import JaccardResult, DatasetModel
+from backend.schemas import JaccardResult, DatasetModel
 from backend.core.dependencies import GenomeService
 
 def test_get_datasets(real_genome_service: GenomeService):

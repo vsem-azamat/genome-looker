@@ -8,7 +8,7 @@ from pybedtools import BedTool
 from fastapi import UploadFile, HTTPException, status
 from fastapi.responses import FileResponse
 
-from backend.schemes import JaccardResult, DatasetModel
+from backend.schemas import JaccardResult, DatasetModel
 
 logger = logging.getLogger(__name__)
 
