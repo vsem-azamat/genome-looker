@@ -98,6 +98,7 @@ class GenomeService:
         if dataset_path.exists():
             raise ValueError(f"Dataset {file.filename} already exists.")
         with open(dataset_path, 'wb') as out_file:
+            file.file.seek(0)
             content = file.file.read()
             out_file.write(content)
         return dataset_path
