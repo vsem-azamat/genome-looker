@@ -20,10 +20,10 @@
                         return `<a href="{{ url_for('download_dataset', dataset='` + datasetName + `') }}" target="_blank">${datasetName}</a>`;
                     },
                 },
+                { title: "Jaccard", field: "jaccard", sorter: "number" },
                 { title: "Intersection", field: "intersection", sorter: "number" },
                 { title: "Union", field: "union", sorter: "number" },
-                { title: "Jaccard", field: "jaccard", sorter: "number" },
-                { title: "Number of Intersections", field: "n_intersections", sorter: "number" },
+                { title: "N of Intersections", field: "n_intersections", sorter: "number" },
             ],
         });
     })();

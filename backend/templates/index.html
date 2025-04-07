@@ -2,23 +2,31 @@
 
 {% block title %}Upload File for Comparison{% endblock %}
 
-{% block content %}
-<div class="container">
-    <p>Upload your BED file to calculate Jaccard similarities:</p>
-    <form id="upload-form" method="post" enctype="multipart/form-data" 
-          hx-post="{{ url_for('jaccards_html') }}"
-          hx-target="#results-container" hx-swap="innerHTML">
-        <div>
-            <label for="file-upload">Select a BED file:</label>
-            <input type="file" id="file-upload" name="file" required>
-            <p>Allowed format: .bed</p>
-        </div>
-        <button type="submit">Upload</button>
-    </form>
-    
-    <div id="results-container">
-        <!-- Results will be dynamically loaded here -->
-    </div>
+{% block sidebar %}
+<div class="sidebar-content">
+    <h3>Available Datasets</h3>
+    <ul>
+        {% for dataset in datasets %}
+        <li>{{ dataset.name }}</li>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock %}
 
+{% block content %}
+<p>Upload your BED file to calculate Jaccard similarities:</p>
+<form id="upload-form" method="post" enctype="multipart/form-data" 
+      hx-post="{{ url_for('jaccards_html') }}"
+      hx-target="#results-container" hx-swap="innerHTML">
+    <div>
+        <label for="file-upload">Select a BED file:</label>
+        <input type="file" id="file-upload" name="file" required>
+        <p>Allowed format: .bed</p>
+    </div>
+    <button type="submit">Upload</button>
+</form>
+
+<div id="results-container">
+    <!-- Results will be dynamically loaded here -->
+</div>
+{% endblock %}
