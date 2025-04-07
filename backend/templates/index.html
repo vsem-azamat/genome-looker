@@ -14,19 +14,27 @@
 {% endblock %}
 
 {% block content %}
-<p>Upload your BED file to calculate Jaccard similarities:</p>
-<form id="upload-form" method="post" enctype="multipart/form-data" 
-      hx-post="{{ url_for('jaccards_html') }}"
-      hx-target="#results-container" hx-swap="innerHTML">
-    <div>
-        <label for="file-upload">Select a BED file:</label>
-        <input type="file" id="file-upload" name="file" required>
-        <p>Allowed format: .bed</p>
-    </div>
-    <button type="submit">Upload</button>
-</form>
+<div class="upload-section">
+    <p>Upload your BED file to calculate Jaccard similarities:</p>
+    <form id="upload-form" method="post" enctype="multipart/form-data" 
+          hx-post="{{ url_for('jaccards_html') }}"
+          hx-target="#results-container" hx-swap="innerHTML">
+        <div>
+            <label for="file-upload">Select a BED file:</label>
+            <input type="file" id="file-upload" name="file" accept=".bed" required>
+            <p>Allowed format: .bed</p>
+        </div>
+        <label class="checkbox-label">
+            <input type="checkbox" name="save" value="true">
+            Save this dataset
+        </label>
+        <button type="submit">Upload</button>
+    </form>
+</div>
 
-<div id="results-container">
+<hr style="margin: 20px 0;">
+
+<div class="results-section" id="results-container">
     <!-- Results will be dynamically loaded here -->
 </div>
 {% endblock %}

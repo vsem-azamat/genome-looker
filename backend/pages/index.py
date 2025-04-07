@@ -4,11 +4,11 @@ from fastapi import (
     Request,
     UploadFile,
     File,
+    Form,
 )
 from asyncio import to_thread
 from fastapi.responses import HTMLResponse
 
-from backend.schemes import DatasetModel
 from backend.core.dependencies import TemplatesDependency, GenomeServiceDependency
 
 router = APIRouter()
@@ -27,7 +27,7 @@ async def index_page(
         "request": request,
         "now": datetime.now(),
         "results": [],
-        "datasets": [DatasetModel(name=d.name).model_dump() for d in datasets],
+        "datasets": [d.model_dump() for d in datasets],
     })
 
 @router.post("/jaccards_html", response_class=HTMLResponse)
@@ -36,8 +36,9 @@ async def jaccards_html(
     genome_service: GenomeServiceDependency,
     templates: TemplatesDependency,
     file: UploadFile = File(...),
+    save: bool = Form(False, description="Save the file"),
 ):
-    results = await to_thread(genome_service.calculate_jaccard, file)
+    results = await to_thread(genome_service.calculate_jaccard, file, save)
     sorted_results = sorted(results, key=lambda x: x.jaccard, reverse=True)
     
     return templates.TemplateResponse(

@@ -14,7 +14,7 @@ def real_genome_service() -> GenomeService:
 
 @pytest.fixture
 def randomized_genome_deb_file(real_genome_service: GenomeService) -> UploadFile:
-    datasets = list(real_genome_service.get_datasets())
+    datasets = list(real_genome_service.get_dataset_paths())
     assert len(datasets) > 0, "No datasets found in the directory."
 
     mixed_rows = []
@@ -32,5 +32,19 @@ def randomized_genome_deb_file(real_genome_service: GenomeService) -> UploadFile
     mock_file = UploadFile(
         filename=mixed_file.name,
         file=io.BytesIO(mixed_file.getvalue().encode()),
+    )
+    return mock_file
+
+@pytest.fixture
+def bad_genome_deb_file() -> UploadFile:
+    """
+    Create a mock file that is not a valid BED file.
+    """
+    bad_file = io.StringIO("This is not a valid BED file.")
+    bad_file.name = "bad_genome.bed"
+    
+    mock_file = UploadFile(
+        filename=bad_file.name,
+        file=io.BytesIO(bad_file.getvalue().encode()),
     )
     return mock_file

@@ -1,9 +1,10 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f7fafc;
-    color: #2d3748;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
     margin: 0;
     padding: 0;
+    line-height: 1.6;
 }
 
 .layout {
@@ -13,15 +14,15 @@ body {
 
 .main-content {
     flex: 1;
-    padding: 15px;
+    padding: 20px;
     overflow: auto;
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .container {
-    max-width: 80vw;
+    max-width: 90vw;
     margin: 0 auto;
     padding: 16px;
 }
@@ -72,4 +73,17 @@ input[type="file"]:focus {
     outline: none;
     border-color: #3182ce;
     box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.5);
+}
+
+input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+label.checkbox-label {
+    font-size: 0.875rem;
+    color: #4a5568;
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
 }

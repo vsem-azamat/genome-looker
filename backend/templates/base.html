@@ -10,7 +10,7 @@
     <script src="https://unpkg.com/htmx.org"></script>
     <title>{% block title %}Genome Looker{% endblock %}</title>
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class="bg-white font-sans leading-normal tracking-normal">
 
     <div class="container mx-auto p-4 md:p-8">
         <header class="mb-8">
@@ -40,18 +40,55 @@
         document.addEventListener("DOMContentLoaded", function() {
             const datasets = {{ datasets | tojson }};
 
+            const downloadIcon = (cell, formatterParams) => 
+                `<img src="/static/icons/download.png" alt="Download" title="Download Dataset" style="width: 20px; height: 20px;">`;
+
+            const deleteIcon = (cell, formatterParams) => 
+                `<img src="/static/icons/delete.png" alt="Delete" title="Delete Dataset" style="width: 20px; height: 20px;">`;
+
             new Tabulator("#datasets-table", {
                 height: "100%",
                 layout: "fitColumns",
                 columns: [
+                    {
+                        formatter: downloadIcon,
+                        width: 40, 
+                        hozAlign: "center", 
+                        cellClick: (e, cell) => {
+                            const datasetName = cell.getValue();
+                            const downloadUrl = `{{ url_for('download_dataset', dataset='` + datasetName + `') }}`;
+                            const link = document.createElement('a');
+                            link.href = downloadUrl;
+                            link.download = datasetName;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        }
+                    },
                     { 
                         title: "Dataset Name", 
                         field: "name", 
                         headerSort: true,
-                        formatter: (cell) => {
-                            let datasetName = cell.getValue();
-                            return `<a href="{{ url_for('download_dataset', dataset='` + datasetName + `') }}" target="_blank">${datasetName}</a>`;
-                        },
+                    },
+                    {
+                        formatter: deleteIcon,
+                        width: 40, 
+                        hozAlign: "center", 
+                        cellClick: (e, cell) => {
+                            const datasetName = cell.getRow().getData().name;
+                            const deleteUrl = `{{ url_for('delete_dataset', dataset='` + datasetName + `') }}`;
+                            if (confirm(`Are you sure you want to delete the dataset "${datasetName}"?`)) {
+                                fetch(deleteUrl, { method: 'DELETE' })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            cell.getRow().delete();
+                                            alert(`Dataset "${datasetName}" deleted successfully.`);
+                                        } else {
+                                            alert(`Failed to delete dataset "${datasetName}".`);
+                                        }
+                                    });
+                            }
+                        }
                     },
                 ],
                 data: datasets
