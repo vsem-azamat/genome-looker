@@ -55,7 +55,7 @@
                         width: 40, 
                         hozAlign: "center", 
                         cellClick: (e, cell) => {
-                            const datasetName = cell.getValue();
+                            const datasetName = cell.getRow().getData().name;
                             const downloadUrl = `{{ url_for('download_dataset', dataset='` + datasetName + `') }}`;
                             const link = document.createElement('a');
                             link.href = downloadUrl;
